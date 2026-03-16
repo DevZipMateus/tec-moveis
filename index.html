@@ -76,7 +76,8 @@
       font-weight: 400;
       transition: color 0.2s;
     }
-    nav a:hover { color: #fff; }
+    nav a:hover, nav a.active { color: #fff; }
+    nav a.active:not(.nav-cta) { border-bottom: 2px solid var(--orange-lt); padding-bottom: 2px; }
     .nav-cta {
       background: var(--orange) !important;
       color: #fff !important;
@@ -139,6 +140,24 @@
     }
     #navMenu .mob-cta:hover { background: var(--orange-lt); }
 
+    /* ===== KEYFRAMES ===== */
+    @keyframes kenburns {
+      0%   { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.09) translate(-1%, 1%); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+    @keyframes drawLine {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     /* ===== HERO ===== */
     #hero {
       min-height: 100vh;
@@ -147,9 +166,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: -6%;
+      z-index: 0;
       background:
         linear-gradient(rgba(28,27,25,0.72), rgba(28,27,25,0.72)),
         url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1920&q=80') center/cover no-repeat;
+      animation: kenburns 22s ease-in-out infinite alternate;
     }
     .hero-inner {
       position: relative;
@@ -279,8 +306,14 @@
     .section-sub.light { color: rgba(255,255,255,0.48); }
     .sec-center { text-align: center; margin-bottom: 64px; }
     .sec-center .section-sub { max-width: 620px; margin-left: auto; margin-right: auto; }
-    .divider { width: 48px; height: 3px; background: var(--orange); border-radius: 2px; margin-top: 18px; }
-    .divider.center { margin-left: auto; margin-right: auto; }
+    .divider {
+      width: 48px; height: 3px; background: var(--orange); border-radius: 2px; margin-top: 18px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+    }
+    .divider.center { margin-left: auto; margin-right: auto; transform-origin: center; }
+    .divider.animated { transform: scaleX(1); }
 
     /* ===== SOBRE ===== */
     #sobre {
@@ -346,7 +379,10 @@
       font-weight: 500;
       padding: 7px 16px;
       border-radius: 20px;
+      transition: background 0.22s, border-color 0.22s, transform 0.22s;
+      cursor: default;
     }
+    .pill:hover { background: rgba(200,90,15,0.1); border-color: rgba(200,90,15,0.4); transform: translateY(-2px); }
 
     /* ===== PRODUTOS ===== */
     #produtos { background: var(--cream); }
@@ -362,9 +398,11 @@
       border-radius: 16px;
       overflow: hidden;
       box-shadow: var(--shadow);
-      transition: transform 0.22s, box-shadow 0.22s;
+      transition: transform 0.28s, box-shadow 0.28s;
     }
-    .produto-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .produto-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .prod-img { transition: transform 0.45s ease; }
+    .produto-card:hover .prod-img { transform: scale(1.07); }
     .prod-img {
       width: 100%;
       height: 220px;
@@ -412,6 +450,7 @@
       border-radius: 16px;
       margin: 40px auto;
       box-shadow: 0 8px 40px rgba(200,90,15,0.38);
+      animation: float 5s ease-in-out infinite;
     }
     .promo-from { font-size: 13px; color: rgba(255,255,255,0.72); text-transform: uppercase; letter-spacing: 0.1em; }
     .promo-value {
@@ -477,7 +516,9 @@
       color: var(--orange);
       font-size: 16px;
       flex-shrink: 0;
+      transition: background 0.25s, color 0.25s, transform 0.25s;
     }
+    .contato-card:hover .cc-icon { background: var(--orange); color: #fff; transform: scale(1.1); }
     .cc-label {
       font-size: 10px;
       font-weight: 700;
@@ -556,9 +597,15 @@
     }
     .wa-float i { color: #fff; font-size: 26px; }
 
+    /* ===== HEADER SCROLL ===== */
+    header { transition: box-shadow 0.3s; }
+    header.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.3); }
+
     /* ===== REVEAL ===== */
-    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal       { opacity: 0; transform: translateY(24px);   transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal-left  { opacity: 0; transform: translateX(-36px);  transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-right { opacity: 0; transform: translateX(36px);   transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible, .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translate(0); }
 
     /* ===== RESPONSIVE ===== */
     @media (min-width: 1280px) {
@@ -665,11 +712,11 @@
 <div class="stats-bar">
   <div class="stats-inner">
     <div class="stat reveal">
-      <div class="stat-num"><em>+10</em> anos</div>
+      <div class="stat-num"><em data-counter="10" data-suffix=" anos">+10 anos</em></div>
       <div class="stat-label">No mercado de móveis</div>
     </div>
     <div class="stat reveal">
-      <div class="stat-num"><em>100%</em></div>
+      <div class="stat-num"><em data-counter="100" data-suffix="%">100%</em></div>
       <div class="stat-label">Sob medida</div>
     </div>
     <div class="stat reveal">
@@ -686,14 +733,14 @@
 <!-- ===== SOBRE ===== -->
 <section id="sobre" class="section">
   <div class="sobre-wrap">
-    <div class="sobre-img-wrap reveal">
+    <div class="sobre-img-wrap reveal-left">
       <img src="sobre-img.jpg" alt="Sala de estar aconchegante com móveis de qualidade">
       <div class="sobre-badge-float">
         <strong>+10</strong>
         <span>anos de experiência</span>
       </div>
     </div>
-    <div class="reveal">
+    <div class="reveal-right">
       <p class="section-tag">Nossa história</p>
       <h2 class="dark">Uma empresa fundada com <em style="color:var(--orange);font-style:normal;">paixão e propósito</em></h2>
       <div class="divider"></div>
@@ -876,18 +923,89 @@
 </a>
 
 <script>
+  /* ── Menu mobile ── */
   const menuBtn = document.getElementById('menuBtn');
   const navMenu = document.getElementById('navMenu');
   menuBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
   function closeMenu() { navMenu.classList.remove('open'); }
 
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
+  /* ── Header sombra ao rolar ── */
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  /* ── Stagger delay nos grids ── */
+  document.querySelectorAll('.produtos-grid .reveal, .contato-grid .reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 3 * 0.12) + 's';
+  });
+
+  /* ── Contador animado ── */
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.counter);
+    const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
+    const duration = 1600;
+    let startTime = null;
+    const step = (ts) => {
+      if (!startTime) startTime = ts;
+      const progress = Math.min((ts - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = prefix + Math.floor(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  /* ── Intersection Observer geral ── */
+  const revealObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+
+      /* Contador nos stats */
+      if (e.target.dataset.counter) animateCounter(e.target);
+
+      /* Divisor draw */
+      e.target.querySelectorAll('.divider').forEach(d => d.classList.add('animated'));
+
+      revealObs.unobserve(e.target);
     });
-  }, { threshold: 0.12 });
-  reveals.forEach(r => observer.observe(r));
+  }, { threshold: 0.14 });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => revealObs.observe(el));
+
+  /* Divisores fora de .reveal (ex: sec-center já tem divider dentro de reveal) */
+  const divObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('animated'); divObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.divider').forEach(d => divObs.observe(d));
+
+  /* Counters standalone (fora de reveal) */
+  const cntObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && e.target.dataset.counter) {
+        animateCounter(e.target); cntObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-counter]').forEach(el => cntObs.observe(el));
+
+  /* ── Nav link ativo ao rolar ── */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+  const secObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => secObs.observe(s));
 </script>
 </body>
 </html>
