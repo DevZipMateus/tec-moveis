@@ -608,18 +608,30 @@
     .reveal.visible, .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translate(0); }
 
     /* ===== RESPONSIVE ===== */
+
+    /* Widescreen / 4K */
+    @media (min-width: 1440px) {
+      .sobre-wrap, .produtos-grid, .stats-inner, .contato-wrap { max-width: 1200px; }
+    }
+
+    /* Desktop padrão */
     @media (min-width: 1280px) {
       .produtos-grid { grid-template-columns: repeat(3, 1fr); }
     }
 
+    /* Small desktop / tablet paisagem */
     @media (max-width: 1023px) {
       header { padding: 0 24px; }
-      .sobre-wrap { grid-template-columns: 1fr; gap: 60px; }
-      .sobre-badge-float { right: 20px; }
+      .sobre-wrap { grid-template-columns: 1fr; gap: 48px; }
+      .sobre-img-wrap img { height: 420px; }
+      .sobre-badge-float { bottom: 16px; right: 16px; }
       .produtos-grid { grid-template-columns: 1fr 1fr; }
+      .promo-features { gap: 10px; }
+      /* Desativa parallax — bug iOS/Android */
       #sobre, #promocao, #contato { background-attachment: scroll, scroll; }
     }
 
+    /* Tablet retrato */
     @media (max-width: 768px) {
       nav { display: none; }
       .hamburger { display: flex; }
@@ -627,39 +639,62 @@
       #navMenu { top: 60px; }
       #hero { padding-top: 60px; }
       .hero-inner { padding: 60px 20px; }
+      .hero-badge { font-size: 10px; padding: 5px 14px; }
       .hero-btns { flex-direction: column; align-items: center; }
       .btn-primary, .btn-outline { width: 100%; max-width: 320px; justify-content: center; }
       .stats-bar { padding: 36px 20px; }
       .stats-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 16px; }
       .section { padding: 72px 20px; }
       .sec-center { margin-bottom: 48px; }
-      .sobre-img-wrap img { height: 360px; }
+      .sobre-img-wrap img { height: 340px; }
+      .sobre-badge-float { bottom: 12px; right: 12px; padding: 16px 20px; }
+      .sobre-badge-float strong { font-size: 26px; }
       .produtos-grid { grid-template-columns: 1fr 1fr; }
+      #promocao { padding: 80px 20px; }
+      .promo-price { padding: 26px 36px; }
       .promo-features { flex-direction: column; align-items: center; }
       .contato-grid { grid-template-columns: 1fr; }
       .contato-card.full { grid-column: span 1; }
+      .footer-brand { font-size: 20px; }
       .wa-float { bottom: 20px; right: 16px; }
     }
 
+    /* Mobile */
     @media (max-width: 480px) {
       header { padding: 0 16px; }
       .hero-inner { padding: 48px 16px; }
+      .hero-badge { font-size: 10px; padding: 5px 12px; margin-bottom: 20px; }
       .section { padding: 56px 16px; }
       .sec-center { margin-bottom: 40px; }
+      .stats-bar { padding: 28px 16px; }
       .stats-inner { gap: 20px 12px; }
-      .sobre-img-wrap img { height: 280px; }
-      .sobre-badge-float { position: static; margin-top: 16px; border-radius: 10px; right: auto; bottom: auto; }
+      .sobre-img-wrap img { height: 260px; }
+      .sobre-badge-float { position: static; margin-top: 16px; border-radius: 10px; display: inline-block; }
+      .sobre-pills { gap: 8px; }
       .produtos-grid { grid-template-columns: 1fr; }
-      .promo-price { padding: 24px 32px; }
-      .btn-whatsapp { width: 100%; justify-content: center; font-size: 15px; }
+      .prod-img { height: 200px; }
+      #promocao { padding: 64px 16px; }
+      .promo-price { padding: 22px 28px; width: 100%; }
+      .promo-value { font-size: 48px; }
+      .promo-feat { font-size: 13px; padding: 9px 16px; }
+      .btn-whatsapp { width: 100%; justify-content: center; font-size: 15px; padding: 14px 24px; }
+      .footer-brand { font-size: 18px; }
+      .footer-txt { font-size: 11px; }
       .wa-float { bottom: 16px; right: 12px; width: 50px; height: 50px; }
+      .wa-float i { font-size: 22px; }
     }
 
+    /* Mobile pequeno */
     @media (max-width: 360px) {
       header { padding: 0 12px; }
+      .hero-inner { padding: 40px 14px; }
       .section { padding: 48px 14px; }
-      .sobre-img-wrap img { height: 240px; }
       .stats-inner { gap: 16px 10px; }
+      .sobre-img-wrap img { height: 220px; }
+      .prod-img { height: 180px; }
+      .promo-price { padding: 18px 22px; }
+      .promo-value { font-size: 40px; }
+      .contato-card { padding: 16px 18px; }
     }
   </style>
 </head>
