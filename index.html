@@ -547,6 +547,101 @@
     }
     .btn-whatsapp:hover { background: #16A34A; transform: translateY(-2px); }
 
+    /* ===== VITRINE NAV BTN ===== */
+    .nav-vitrine {
+      background: rgba(232,122,40,0.12) !important;
+      color: var(--orange-lt) !important;
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      font-size: 13px !important;
+      border: 1px solid rgba(232,122,40,0.3);
+      transition: all 0.2s !important;
+    }
+    .nav-vitrine:hover { background: rgba(232,122,40,0.22) !important; border-color: rgba(232,122,40,0.5); }
+
+    /* ===== VITRINE BANNER (seção produtos) ===== */
+    .vitrine-banner-inner {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-soft) 100%);
+      border-radius: 20px;
+      padding: 48px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      border: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .vitrine-banner-inner::before {
+      content: '';
+      position: absolute;
+      top: -60%; right: -10%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(200,90,15,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .vitrine-banner-text { position: relative; z-index: 1; max-width: 600px; }
+    .vitrine-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200,90,15,0.14);
+      border: 1px solid rgba(200,90,15,0.35);
+      color: var(--orange-lt);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+    .vitrine-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .vitrine-desc {
+      font-size: 15px;
+      color: rgba(255,255,255,0.52);
+      line-height: 1.72;
+      margin-bottom: 28px;
+    }
+    .btn-vitrine {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-vitrine:hover { background: var(--orange-lt); transform: translateY(-2px); }
+    .vitrine-banner-icon {
+      position: relative;
+      z-index: 1;
+      width: 140px; height: 140px;
+      background: rgba(200,90,15,0.1);
+      border: 1px solid rgba(200,90,15,0.2);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .vitrine-banner-icon i {
+      font-size: 3.5rem;
+      color: var(--orange-lt);
+      opacity: 0.75;
+    }
+
     /* ===== FOOTER ===== */
     footer {
       background: var(--dark);
@@ -638,6 +733,10 @@
       header { height: 60px; padding: 0 20px; }
       #navMenu { top: 60px; }
       #hero { padding-top: 60px; }
+      .vitrine-banner-inner { flex-direction: column; text-align: center; padding: 36px 28px; }
+      .vitrine-banner-icon { width: 100px; height: 100px; border-radius: 18px; }
+      .vitrine-banner-icon i { font-size: 2.5rem; }
+      .vitrine-desc { font-size: 14px; }
       .hero-inner { padding: 60px 20px; }
       .hero-badge { font-size: 10px; padding: 5px 14px; }
       .hero-btns { flex-direction: column; align-items: center; }
@@ -663,6 +762,10 @@
     @media (max-width: 480px) {
       header { padding: 0 16px; }
       .hero-inner { padding: 48px 16px; }
+      .vitrine-banner-inner { padding: 28px 20px; gap: 24px; }
+      .vitrine-banner-icon { width: 80px; height: 80px; border-radius: 16px; }
+      .vitrine-banner-icon i { font-size: 2rem; }
+      .btn-vitrine { width: 100%; justify-content: center; }
       .hero-badge { font-size: 10px; padding: 5px 12px; margin-bottom: 20px; }
       .section { padding: 56px 16px; }
       .sec-center { margin-bottom: 40px; }
@@ -702,12 +805,13 @@
 
 <!-- ===== HEADER ===== -->
 <header>
-  <a href="#hero" class="header-logo">Tec <span>Móveis</span></a>
+  <a href="index.html" class="header-logo">Tec <span>Móveis</span></a>
   <nav>
-    <a href="#sobre">Sobre</a>
-    <a href="#produtos">Produtos</a>
-    <a href="#promocao">Promoção</a>
-    <a href="#contato" class="nav-cta">Fale conosco</a>
+    <a href="index.html#sobre">Sobre</a>
+    <a href="index.html#produtos">Produtos</a>
+    <a href="index.html#promocao">Promoção</a>
+    <a href="vitrine.html" class="nav-vitrine"><i class="fas fa-store"></i> Vitrine</a>
+    <a href="index.html#contato" class="nav-cta">Fale conosco</a>
   </nav>
   <button class="hamburger" id="menuBtn" aria-label="Abrir menu">
     <span></span><span></span><span></span>
@@ -715,10 +819,11 @@
 </header>
 
 <nav id="navMenu">
-  <a href="#sobre"    onclick="closeMenu()">Sobre</a>
-  <a href="#produtos" onclick="closeMenu()">Produtos</a>
-  <a href="#promocao" onclick="closeMenu()">Promoção</a>
-  <a href="#contato"  onclick="closeMenu()">Contato</a>
+  <a href="index.html#sobre"    onclick="closeMenu()">Sobre</a>
+  <a href="index.html#produtos" onclick="closeMenu()">Produtos</a>
+  <a href="index.html#promocao" onclick="closeMenu()">Promoção</a>
+  <a href="vitrine.html"        onclick="closeMenu()"><i class="fas fa-store"></i> Vitrine</a>
+  <a href="index.html#contato"  onclick="closeMenu()">Contato</a>
   <a href="https://wa.me/551195039177" target="_blank" onclick="closeMenu()" class="mob-cta">
     <i class="fab fa-whatsapp"></i> Falar no WhatsApp
   </a>
@@ -736,7 +841,10 @@
       <a href="https://wa.me/551195039177" target="_blank" class="btn-primary">
         <i class="fab fa-whatsapp"></i> Falar com a gente
       </a>
-      <a href="#produtos" class="btn-outline">
+      <a href="vitrine.html" class="btn-outline">
+        <i class="fas fa-store"></i> Acessar vitrine
+      </a>
+      <a href="index.html#produtos" class="btn-outline">
         <i class="fas fa-couch"></i> Ver produtos
       </a>
     </div>
@@ -850,6 +958,23 @@
         <h3 class="prod-name">Ambientes completos</h3>
         <p class="prod-desc">Projeto completo para toda a casa, com integração de ambientes, materiais premium e acabamento de alto padrão sob medida.</p>
         <span class="prod-tag">Casa Completa</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Banner Vitrine -->
+  <div class="vitrine-banner reveal" style="max-width:1100px;margin:48px auto 0;">
+    <div class="vitrine-banner-inner">
+      <div class="vitrine-banner-text">
+        <span class="vitrine-badge"><i class="fas fa-store"></i> Vitrine online</span>
+        <h3 class="vitrine-title">Confira todos os nossos móveis na vitrine digital</h3>
+        <p class="vitrine-desc">Navegue pelo nosso catálogo completo com fotos, descrições e preços. Encontre o móvel perfeito para cada ambiente da sua casa — sem sair do sofá.</p>
+        <a href="vitrine.html" class="btn-vitrine">
+          <i class="fas fa-external-link-alt"></i> Acessar vitrine
+        </a>
+      </div>
+      <div class="vitrine-banner-icon">
+        <i class="fas fa-laptop-house"></i>
       </div>
     </div>
   </div>
